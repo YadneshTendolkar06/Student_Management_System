@@ -11,7 +11,7 @@ function Page() {
 
   const fetchData = async()=>{
     try {
-      const response = await axios.get(process.env.NEXT_PUBLIC_API_URL)
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/student`)
       setData(response.data)
     } catch (error) {
       console.log(error)
@@ -28,10 +28,10 @@ function Page() {
     if (editable && editableData) {
         try {
             // Update the data on the server
-            await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/${editableData.id}`, newStudentData);
+            await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/student/${editableData.id}`, newStudentData);
 
             // Fetch updated data after the update
-            const response = await axios.get(process.env.NEXT_PUBLIC_API_URL);
+            const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/student`);
             setData(response.data);
 
             // Clear the form and reset state
@@ -49,8 +49,8 @@ function Page() {
     } else {
         try {
             // Add new student data if not in edit mode
-            await axios.post(process.env.NEXT_PUBLIC_API_URL, newStudentData);
-            const response = await axios.get(process.env.NEXT_PUBLIC_API_URL);
+            await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/student`, newStudentData);
+            const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/student`);
             setData(response.data);
 
             // Reset the form after adding the student
@@ -71,7 +71,7 @@ function Page() {
 
   const handleDeleteButton = async(id)=>{
     try {
-      await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/${id}`)
+      await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/student/${id}`)
       fetchData()
     } catch (error) {
       console.log(error)
