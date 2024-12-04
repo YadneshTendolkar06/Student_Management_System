@@ -25,14 +25,14 @@ db.connect(err=> {
 }}
 )
 
-app.get('/student', (req,res)=>{
+app.get('/', (req,res)=>{
     db.query("SELECT * FROM student", (err, result)=> {
         if(err) return res.status(500).send(err)
         res.send(result)
     })
 })
 
-app.post('/', (req,res)=>{
+app.post('/student', (req,res)=>{
     const {name, class: classData, roll_number} = req.body;
     if (!name || !classData || !roll_number) {
         return res.status(400).send('All fields are required');
