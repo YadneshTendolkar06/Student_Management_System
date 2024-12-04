@@ -11,7 +11,7 @@ function page() {
 
   const fetchData = async()=>{
     try {
-      const response = await axios.get('http://localhost:5000/student')
+      const response = await axios.get(process.env.NEXT_PUBLIC_API_URL)
       setData(response.data)
     } catch (error) {
       console.log(error)
@@ -28,9 +28,12 @@ function page() {
       if(editable && editableData){
         try {
           data.map(async(item) =>{ item.id === editableData.id &&
-            await axios.put(`http://localhost:5000/student/${item.id}`,newStudentData)
-            const response = await axios.get("http://localhost:5000/student");
-            setData(response.data);
+            await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/${item.id}`,newStudentData)
+            setData((prevData) =>
+              prevData.map((item) =>
+                item.id === editableData.id ? { ...item, ...newStudentData } : item
+              )
+            );
           setEditable(false)
           }
           )
@@ -39,9 +42,9 @@ function page() {
         }
       }else{
         try {
-          await axios.post('http://localhost:5000/student', newStudentData)
-          const response = await axios.get("http://localhost:5000/student");
-          setData(response.data); // Update the state with the new data
+          await axios.post(process.env.NEXT_PUBLIC_API_URL, newStudentData)
+          const response = await axios.get(process.env.NEXT_PUBLIC_API_URL);
+          setData(response.data);
           setNewStudentData({name: '',class: '', roll_number: ''})
           setEditable(false)
         } catch (error) {
@@ -53,7 +56,7 @@ function page() {
 
   const handleDeleteButton = async(id)=>{
     try {
-      await axios.delete(`http://localhost:5000/student/${id}`)
+      await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/${id}`)
       fetchData()
     } catch (error) {
       console.log(error)
@@ -64,8 +67,6 @@ function page() {
     const studData = data.find(item => item.id === id)
     setEditableData(studData)
   }
-
-  console.log(newStudentData)
 
   useEffect(()=>{
     if(editableData){
