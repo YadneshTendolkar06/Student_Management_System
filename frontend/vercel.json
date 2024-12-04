@@ -1,5 +1,5 @@
 {
   "rewrites": [
-    { "source": "/api/:path*", "destination": "https://your-backend-domain.com/:path*" }
+    { "source": "/api/:https://student-management-system-frontend-ten.vercel.app/", "destination": "https://your-backend-domain.com/:path*" }
   ]
 }
