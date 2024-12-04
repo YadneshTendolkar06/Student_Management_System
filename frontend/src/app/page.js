@@ -23,8 +23,6 @@ function Page() {
     setNewStudentData({...newStudentData, [name]: value})
   }
 
-  console.log("API URL:", process.env.NEXT_PUBLIC_API_URL);
-
   const handleAddData = async (e) => {
     e.preventDefault();
     if (editable && editableData) {
