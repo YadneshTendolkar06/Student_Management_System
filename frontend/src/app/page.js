@@ -2,7 +2,7 @@
 import React,{useEffect, useState} from 'react'
 import axios from 'axios'
 
-function page() {
+function Page() {
 
   const [data,setData] = useState([])
   const [newStudentData, setNewStudentData] = useState({name: '',class: '', roll_number: ''})
@@ -197,4 +197,4 @@ function page() {
     )
 }
 
-export default page
+export default Page
