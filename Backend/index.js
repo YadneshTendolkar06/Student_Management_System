@@ -8,7 +8,7 @@ const app = express()
 dotenv.config();
 app.use(cors(
     {
-        origin: ['student-management-system-front-end.vercel.app'],
+        origin: ['https://student-management-system-frontend-beryl.vercel.app/'],
         methods: ["POST", "GET"],
         credentials: true
     }
