@@ -1,8 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/https://student-management-system-backend-omega.vercel.app/student*",
-      "destination": "https://student-management-system-backend-omega.vercel.app/student*"
+      "source": "/api/student",
+      "destination": "https://student-management-system-backend-omega.vercel.app/student"
     }
   ]
 }
