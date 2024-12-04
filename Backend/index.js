@@ -8,7 +8,7 @@ const app = express()
 dotenv.config();
 app.use(cors(
     {
-        origin: 'https://student-management-system-frontend-ten.vercel.app',
+        origin: ['https://student-management-system-frontend-ten.vercel.app'],
         methods: ["post", "get"],
         credentials: true
     }
