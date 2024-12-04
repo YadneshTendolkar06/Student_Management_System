@@ -1,5 +1,1 @@
-{
-  "rewrites": [
-    { "source": "/api/:https://student-management-system-frontend-ten.vercel.app/", "destination": "https://your-backend-domain.com/:path*" }
-  ]
-}
+
