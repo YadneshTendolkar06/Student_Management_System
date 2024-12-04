@@ -25,7 +25,7 @@ db.connect(err=> {
 }}
 )
 
-app.get('/', (req,res)=>{
+app.get('/student', (req,res)=>{
     db.query("SELECT * FROM student", (err, result)=> {
         if(err) return res.status(500).send(err)
         res.send(result)
