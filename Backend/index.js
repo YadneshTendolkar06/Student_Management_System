@@ -6,7 +6,13 @@ import dotenv from 'dotenv';
 
 const app = express()
 dotenv.config();
-app.use(cors())
+app.use(cors(
+    {
+        origin: ['student-management-system-front-end.vercel.app'],
+        methods: ["POST", "GET"],
+        credentials: true
+    }
+))
 app.use(express.json());
 
 const db = mysql.createConnection({host: process.env.DB_HOST, user: process.env.DB_USER, password: process.env.DB_PASSWORD, database: process.env.DB_DATABASE})
