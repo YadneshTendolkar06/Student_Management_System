@@ -32,7 +32,7 @@ app.get('/student', (req,res)=>{
     })
 })
 
-app.post('/student', (req,res)=>{
+app.post('/', (req,res)=>{
     const {name, class: classData, roll_number} = req.body;
     if (!name || !classData || !roll_number) {
         return res.status(400).send('All fields are required');
