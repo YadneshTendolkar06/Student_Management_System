@@ -7,7 +7,7 @@ import dotenv from 'dotenv';
 const app = express()
 dotenv.config();
 app.use(cors({
-    origin: 'https://student-management-system-frontend-ten.vercel.app', // Allow only your frontend
+    origin: '*', // Allow only your frontend
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify allowed HTTP methods
     credentials: true, // Allow credentials if needed
 }));
