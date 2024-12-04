@@ -11,7 +11,7 @@ function Page() {
 
   const fetchData = async()=>{
     try {
-      const response = await axios.get('/api/student')
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}`)
       setData(response.data)
     } catch (error) {
       console.log(error)
