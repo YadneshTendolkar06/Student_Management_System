@@ -23,36 +23,51 @@ function page() {
     setNewStudentData({...newStudentData, [name]: value})
   }
 
-  const handleAddData = async (e) =>{
+  const handleAddData = async (e) => {
     e.preventDefault();
-      if(editable && editableData){
+    if (editable && editableData) {
         try {
-          data.map(async(item) =>{ item.id === editableData.id &&
-            await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/${item.id}`,newStudentData)
-            setData((prevData) =>
-              prevData.map((item) =>
-                item.id === editableData.id ? { ...item, ...newStudentData } : item
-              )
-            );
-          setEditable(false)
-          }
-          )
+            // Update the data on the server
+            await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/${editableData.id}`, newStudentData);
+
+            // Fetch updated data after the update
+            const response = await axios.get(process.env.NEXT_PUBLIC_API_URL);
+            setData(response.data);
+
+            // Clear the form and reset state
+            setEditable(false);
+            setNewStudentData({ name: '', class: '', roll_number: '' });
+
         } catch (error) {
-          console.log(error)
+            console.error("Error updating data:", error);
+            if (error.response && error.response.status === 409) {
+                alert('Record already exists with the same class and roll number');
+            } else {
+                alert('An error occurred. Please try again.');
+            }
         }
-      }else{
+    } else {
         try {
-          await axios.post(process.env.NEXT_PUBLIC_API_URL, newStudentData)
-          const response = await axios.get(process.env.NEXT_PUBLIC_API_URL);
-          setData(response.data);
-          setNewStudentData({name: '',class: '', roll_number: ''})
-          setEditable(false)
+            // Add new student data if not in edit mode
+            await axios.post(process.env.NEXT_PUBLIC_API_URL, newStudentData);
+            const response = await axios.get(process.env.NEXT_PUBLIC_API_URL);
+            setData(response.data);
+
+            // Reset the form after adding the student
+            setNewStudentData({ name: '', class: '', roll_number: '' });
+            setEditable(false);
+
         } catch (error) {
-          console.log(error)
+            console.error("Error adding data:", error);
+            if (error.response && error.response.status === 409) {
+                alert('Record already exists with the same class and roll number');
+            } else {
+                alert('An error occurred. Please try again.');
+            }
         }
-      }
-      setNewStudentData({name: '',class: '', roll_number: ''})
-  }
+    }
+};
+
 
   const handleDeleteButton = async(id)=>{
     try {
@@ -66,6 +81,7 @@ function page() {
   const handleEdit = (id)=>{
     const studData = data.find(item => item.id === id)
     setEditableData(studData)
+    setEditable(true);
   }
 
   useEffect(()=>{
